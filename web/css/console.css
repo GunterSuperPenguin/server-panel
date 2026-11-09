@@ -1,0 +1,11 @@
+#view-console { flex-direction: column; }
+#console { flex: 1; overflow: auto; padding: 12px 20px; white-space: pre-wrap; word-break: break-word;
+           font: 13px/1.5 ui-monospace, "JetBrains Mono", monospace; }
+#console .err { color: var(--bad); }
+#console .warn { color: var(--warn); }
+#console .cmd, #console .panel { color: var(--accent); }
+#console .empty { color: var(--dim); font-family: system-ui, sans-serif; font-size: 15px; }
+
+#cmdform { display: flex; border-top: 1px solid var(--line); background: var(--panel); }
+#cmdform input { flex: 1; padding: 12px 20px; background: none; border: 0;
+                 font: 14px ui-monospace, "JetBrains Mono", monospace; }

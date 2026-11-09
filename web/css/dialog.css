@@ -1,0 +1,6 @@
+dialog { width: min(420px, calc(100vw - 32px)); padding: 24px; background: var(--panel); color: var(--text);
+         border: 1px solid var(--line); border-radius: 10px; }
+dialog::backdrop { background: rgba(0, 0, 0, .6); }
+dialog h2 { margin: 0 0 16px; font-size: 18px; }
+dialog form { display: grid; gap: 14px; }
+dialog .row { justify-content: flex-end; }

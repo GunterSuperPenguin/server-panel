@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GMod сервер</title>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/console.css">
+<link rel="stylesheet" href="/css/settings.css">
+<link rel="stylesheet" href="/css/dialog.css">
+</head>
+<body>
+
+<button id="connect" type="button" title="Нажмите, чтобы скопировать">
+  <span id="connect-text"></span><small>Нажмите, чтобы скопировать</small>
+</button>
+
+<header>
+  <select id="server" aria-label="Сервер"></select>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="console">Консоль</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="settings">Настройки</button>
+  </div>
+  <div id="status" data-s="stopped"><i></i><span id="status-text">Остановлен</span></div>
+  <button class="btn primary" id="b-start">Включить</button>
+  <button class="btn" id="b-stop">Выключить</button>
+  <button class="btn" id="b-restart">Перезапустить</button>
+</header>
+
+<main>
+  <section id="view-console" class="active">
+    <div id="console" aria-live="off"></div>
+    <form id="cmdform" autocomplete="off">
+      <input id="cmd" placeholder="Команда серверу, например: status" aria-label="Команда серверу">
+    </form>
+  </section>
+
+  <section id="view-settings">
+    <form id="cfg">
+      <label><span>ID коллекции Workshop</span><input type="text" name="workshop_collection" inputmode="numeric"></label>
+      <label><span>Режим игры</span><input type="text" name="gamemode"></label>
+      <label><span>Карта</span><input type="text" name="map"></label>
+      <label><span>Максимум игроков</span><input type="number" name="maxplayers" min="1" max="128"></label>
+      <label><span>Порт (у каждого одновременно запущенного сервера свой)</span><input type="number" name="port" min="1024" max="65535"></label>
+      <label class="check"><input type="checkbox" name="update_on_start"> Устанавливать и обновлять сервер через steamcmd при запуске</label>
+      <label class="check"><input type="checkbox" name="auto_restart"> Перезапускать сервер после сбоя</label>
+      <div class="row">
+        <button class="btn primary" type="submit">Сохранить</button>
+        <span class="msg" id="msg"></span>
+      </div>
+      <p class="hint">Файлы сервера: <code id="path"></code>. Изменения применятся при следующем запуске или перезапуске.</p>
+    </form>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <h2>Новый сервер</h2>
+  <form id="newform" autocomplete="off">
+    <label><span>Имя (станет названием папки в servers/)</span>
+      <input type="text" id="newname" maxlength="40" placeholder="например: sandbox" required></label>
+    <span class="msg" id="newmsg"></span>
+    <div class="row">
+      <button class="btn" type="button" id="newcancel">Отмена</button>
+      <button class="btn primary" type="submit">Создать</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>

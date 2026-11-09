@@ -1,0 +1,23 @@
+#connect { display: none; width: 100%; padding: 12px 20px; border: 0; border-bottom: 1px solid var(--line);
+           background: #1d2a1f; color: var(--ok); text-align: left; cursor: pointer;
+           font: 600 17px/1.3 ui-monospace, "JetBrains Mono", monospace; }
+#connect.show { display: flex; justify-content: space-between; gap: 16px; }
+#connect:hover { background: #22331f; }
+#connect small { font: 13px system-ui, sans-serif; color: var(--dim); white-space: nowrap; }
+#connect.copied small { color: var(--ok); }
+
+header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+         padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
+#server { min-width: 180px; padding: 8px 10px; background: var(--bg); border: 1px solid var(--line);
+          border-radius: 6px; cursor: pointer; }
+#server:hover { border-color: var(--accent); }
+
+.tabs { display: flex; gap: 4px; margin-right: auto; }
+.tab { background: none; border: 0; padding: 8px 14px; border-radius: 6px; color: var(--dim); cursor: pointer; }
+.tab[aria-selected=true] { color: var(--text); background: var(--bg); box-shadow: inset 0 -2px var(--accent); }
+
+#status { display: flex; align-items: center; gap: 8px; color: var(--dim); }
+#status i { width: 10px; height: 10px; border-radius: 50%; background: var(--dim); }
+#status[data-s=running] i { background: var(--ok); }
+#status[data-s=starting] i, #status[data-s=stopping] i { background: var(--warn); }
+#status[data-s=stopped] i { background: var(--bad); }
