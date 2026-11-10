@@ -1,3 +1,3 @@
-from . import control, servers, settings
+from . import control, locale, servers, settings
 
-ROUTES = {**servers.ROUTES, **control.ROUTES, **settings.ROUTES}
+ROUTES = {**servers.ROUTES, **control.ROUTES, **settings.ROUTES, **locale.ROUTES}

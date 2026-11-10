@@ -6,6 +6,7 @@ import subprocess
 import threading
 
 from .config import APP_ID, server_path
+from .errors import LocalizedError
 from .hub import Hub
 from .settings import load_settings
 
@@ -57,9 +58,9 @@ class Server:
 
     def command(self, text):
         if self.phase != "server" or self.master is None:
-            raise RuntimeError("Server is not running")
+            raise LocalizedError("err-server-not-running")
         os.write(self.master, (text + "\n").encode())
-        self.hub.log("> " + text)
+        self.hub.log(text, "cmd")
 
     def _loop(self):
         hub = self.hub
@@ -73,14 +74,14 @@ class Server:
                     if self.stopping:
                         break
                 if not (server_dir / "srcds_run").exists():
-                    hub.log(f"[panel] servers/{self.name} has no srcds_run - enable steamcmd updates in the settings")
+                    hub.log_key("log-no-srcds", name=self.name)
                     break
                 hub.set("starting")
                 code = self._run_server(cfg, server_dir)
-                hub.log(f"[panel] Server exited with code {code}")
+                hub.log_key("log-exited", code=str(code))
                 if self.stopping or code == 0 or not cfg["auto_restart"]:
                     break
-                hub.log("[panel] Restarting in 3 seconds...")
+                hub.log_key("log-restarting")
                 hub.set("starting")
                 self.wake.wait(3)
         finally:
@@ -88,14 +89,14 @@ class Server:
             hub.set("stopped")
 
     def _steamcmd(self, server_dir):
-        self.hub.log("[panel] Installing/updating the server with steamcmd...")
+        self.hub.log_key("log-steamcmd-start")
         cmd = ["steamcmd", "+force_install_dir", str(server_dir), "+login", "anonymous",
                "+app_update", APP_ID, "-beta", "public", "validate", "+quit"]
         try:
             proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                     text=True, errors="replace", start_new_session=True)
         except FileNotFoundError:
-            self.hub.log("[panel] steamcmd not found in PATH - update skipped")
+            self.hub.log_key("log-steamcmd-missing")
             return
         self.proc, self.phase = proc, "steamcmd"
         for line in proc.stdout or []:
@@ -112,7 +113,7 @@ class Server:
                "+sv_hibernate_think", "1", "+sv_lan", "0", "-p2p"]
         if cfg["workshop_collection"]:
             cmd += ["+host_workshop_collection", cfg["workshop_collection"]]
-        self.hub.log("[panel] Starting: " + " ".join(cmd))
+        self.hub.log_key("log-starting", cmd=" ".join(cmd))
 
         master, slave = pty.openpty()
         proc = subprocess.Popen(cmd, cwd=server_dir, stdin=slave, stdout=slave, stderr=slave,

@@ -1,4 +1,4 @@
-export const store = { server: null, state: 'stopped', p2p: null };
+export const store = { server: null, state: 'stopped', p2p: null, lang: 'en' };
 
 const listeners = new Set();
 

@@ -1,6 +1,6 @@
 import { clear } from './components/console.js';
 import { loadSettings } from './components/settings.js';
-import { update } from './state.js';
+import { onChange, update } from './state.js';
 import { connect } from './stream.js';
 
 export function savedServer() {
@@ -13,4 +13,14 @@ export function switchServer(name) {
   clear();
   connect(name);
   loadSettings();
+}
+
+export function initSession() {
+  let lang = null;
+  onChange(({ lang: next, server }) => {
+    if (next === lang) return;
+    const first = lang === null;
+    lang = next;
+    if (!first && server !== null) connect(server);
+  });
 }

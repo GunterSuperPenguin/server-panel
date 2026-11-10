@@ -1,6 +1,7 @@
 import json
 
 from .config import DEFAULT_SETTINGS, SAFE_VALUE_RE, server_path
+from .errors import LocalizedError
 
 
 def load_settings(name):
@@ -19,22 +20,22 @@ def save_settings(name, cfg):
 
 def validate_settings(name, data):
     cfg = load_settings(name)
-    for key, title in (("map", "Map"), ("gamemode", "Gamemode")):
+    for key in ("map", "gamemode"):
         value = str(data.get(key, cfg[key])).strip()
         if not SAFE_VALUE_RE.match(value):
-            raise ValueError(f"{title}: only letters, digits, _ . - are allowed")
+            raise LocalizedError(f"err-{key}-invalid")
         cfg[key] = value
     collection = str(data.get("workshop_collection", "")).strip()
     if collection and not collection.isdigit():
-        raise ValueError("Workshop collection ID must contain digits only")
+        raise LocalizedError("err-collection-invalid")
     cfg["workshop_collection"] = collection
-    for key, title, lo, hi in (("maxplayers", "Max players", 1, 128), ("port", "Port", 1024, 65535)):
+    for key, lo, hi in (("maxplayers", 1, 128), ("port", 1024, 65535)):
         try:
             value = int(data.get(key, cfg[key]))
         except (TypeError, ValueError):
-            raise ValueError(f"{title} must be a number")
+            raise LocalizedError(f"err-{key}-number")
         if not lo <= value <= hi:
-            raise ValueError(f"{title} must be between {lo} and {hi}")
+            raise LocalizedError(f"err-{key}-range", min=str(lo), max=str(hi))
         cfg[key] = value
     cfg["update_on_start"] = bool(data.get("update_on_start"))
     cfg["auto_restart"] = bool(data.get("auto_restart"))

@@ -2,13 +2,10 @@ import threading
 from dataclasses import dataclass
 
 from .config import DEFAULT_SETTINGS, NAME_RE, SERVERS_DIR, server_path
+from .errors import LocalizedError
 from .hub import Hub
 from .process import Server
 from .settings import save_settings
-
-
-class ServerNotFound(ValueError):
-    pass
 
 
 @dataclass
@@ -24,7 +21,7 @@ _lock = threading.Lock()
 
 def get_instance(name):
     if not NAME_RE.match(name or "") or not server_path(name).is_dir():
-        raise ServerNotFound("Server not found")
+        raise LocalizedError("err-server-not-found", status=404)
     with _lock:
         if name not in _instances:
             hub = Hub()
@@ -40,14 +37,13 @@ def list_servers():
 def create_server(name):
     name = (name or "").strip()
     if not NAME_RE.match(name):
-        raise ValueError("Name: latin letters, digits, _ and -, up to 40 characters")
+        raise LocalizedError("err-name-invalid")
     try:
         server_path(name).mkdir()
     except FileExistsError:
-        raise ValueError("A server with this name already exists")
+        raise LocalizedError("err-name-exists")
     save_settings(name, DEFAULT_SETTINGS)
-    get_instance(name).hub.log(
-        f"[panel] Created servers/{name}. On the first start steamcmd will download the server files (several GB).")
+    get_instance(name).hub.log_key("log-created", name=name)
     return name
 
 

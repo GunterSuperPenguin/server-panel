@@ -8,9 +8,10 @@
 
 header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
          padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
-#server { min-width: 180px; padding: 8px 10px; background: var(--bg); border: 1px solid var(--line);
-          border-radius: 6px; cursor: pointer; }
-#server:hover { border-color: var(--accent); }
+#server, #lang { padding: 8px 10px; background: var(--bg); border: 1px solid var(--line);
+                 border-radius: 6px; cursor: pointer; }
+#server { min-width: 180px; }
+#server:hover, #lang:hover { border-color: var(--accent); }
 
 .tabs { display: flex; gap: 4px; margin-right: auto; }
 .tab { background: none; border: 0; padding: 8px 14px; border-radius: 6px; color: var(--dim); cursor: pointer; }

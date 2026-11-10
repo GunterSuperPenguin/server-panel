@@ -18,10 +18,16 @@ class Hub:
         for q in self.clients:
             q.put(msg)
 
-    def log(self, text):
+    def _add(self, line):
         with self.lock:
-            self.history.append(text)
-            self._push({"type": "line", "text": text})
+            self.history.append(line)
+            self._push({"type": "line", "line": line})
+
+    def log(self, text, kind="out"):
+        self._add({"kind": kind, "text": text})
+
+    def log_key(self, key, **params):
+        self._add({"kind": "panel", "key": key, "params": params})
 
     def set(self, state, p2p=None):
         with self.lock:

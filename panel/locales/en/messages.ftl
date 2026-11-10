@@ -1,0 +1,23 @@
+log-steamcmd-start = Installing/updating the server with steamcmd...
+log-steamcmd-missing = steamcmd not found in PATH - update skipped
+log-no-srcds = servers/{ $name } has no srcds_run - enable steamcmd updates in the settings
+log-starting = Starting: { $cmd }
+log-exited = Server exited with code { $code }
+log-restarting = Restarting in 3 seconds...
+log-created = Created servers/{ $name }. On the first start steamcmd will download the server files (several GB).
+
+err-not-found = Not found
+err-forbidden = Forbidden
+err-invalid-json = Invalid JSON
+err-bad-request = Bad request
+err-server-not-found = Server not found
+err-server-not-running = Server is not running
+err-name-invalid = Name: latin letters, digits, _ and -, up to 40 characters
+err-name-exists = A server with this name already exists
+err-map-invalid = Map: only letters, digits, _ . - are allowed
+err-gamemode-invalid = Gamemode: only letters, digits, _ . - are allowed
+err-collection-invalid = Workshop collection ID must contain digits only
+err-maxplayers-number = Max players must be a number
+err-maxplayers-range = Max players must be between { $min } and { $max }
+err-port-number = Port must be a number
+err-port-range = Port must be between { $min } and { $max }

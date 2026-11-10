@@ -1,0 +1,23 @@
+log-steamcmd-start = Установка/обновление сервера через steamcmd...
+log-steamcmd-missing = steamcmd не найден в PATH - обновление пропущено
+log-no-srcds = В servers/{ $name } нет srcds_run - включите обновление через steamcmd в настройках
+log-starting = Запуск: { $cmd }
+log-exited = Сервер завершился с кодом { $code }
+log-restarting = Перезапуск через 3 секунды...
+log-created = Создана папка servers/{ $name }. При первом запуске steamcmd скачает файлы сервера (несколько ГБ).
+
+err-not-found = Не найдено
+err-forbidden = Доступ запрещён
+err-invalid-json = Некорректный JSON
+err-bad-request = Некорректный запрос
+err-server-not-found = Сервер не найден
+err-server-not-running = Сервер не запущен
+err-name-invalid = Имя: латинские буквы, цифры, _ и -, не более 40 символов
+err-name-exists = Сервер с таким именем уже существует
+err-map-invalid = Карта: допустимы только буквы, цифры, _ . -
+err-gamemode-invalid = Режим игры: допустимы только буквы, цифры, _ . -
+err-collection-invalid = ID коллекции должен состоять только из цифр
+err-maxplayers-number = Максимум игроков должен быть числом
+err-maxplayers-range = Максимум игроков: от { $min } до { $max }
+err-port-number = Порт должен быть числом
+err-port-range = Порт: от { $min } до { $max }

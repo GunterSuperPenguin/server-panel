@@ -4,10 +4,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 from ..config import HOST, PORT
+from ..errors import LocalizedError
 from ..hub import Hub
-from ..registry import ServerNotFound
+from ..locales import get_l10n, resolve_locale
 from .api import ROUTES
-from .request import EventStream, HttpError, Request
+from .events import encode
+from .request import EventStream, Request
 from .static import read_static
 
 
@@ -23,36 +25,37 @@ class Handler(BaseHTTPRequestHandler):
 
     def _dispatch(self, method):
         url = urlparse(self.path)
+        query = parse_qs(url.query)
+        locale = resolve_locale(query.get("lang", [""])[0], self.headers.get("Accept-Language", ""))
+        l10n = get_l10n(locale)
         try:
             data = self._read_body() if method == "POST" else {}
             route = ROUTES.get((method, url.path))
             if route is None:
                 if method == "GET":
                     return self._send_static(url.path)
-                raise HttpError(404, "Not found")
-            result = route(Request(parse_qs(url.query), data))
+                raise LocalizedError("err-not-found", status=404)
+            result = route(Request(query, data, locale))
             if isinstance(result, EventStream):
-                self._stream(result.hub)
+                self._stream(result.hub, locale)
             else:
                 self._send_json(result)
-        except HttpError as e:
-            self._send_json({"error": e.message}, e.status)
-        except ServerNotFound as e:
-            self._send_json({"error": str(e)}, 404)
-        except (ValueError, RuntimeError) as e:
-            self._send_json({"error": str(e)}, 400)
+        except LocalizedError as e:
+            self._send_json({"error": l10n.format_value(e.key, e.params)}, e.status)
+        except ValueError:
+            self._send_json({"error": l10n.format_value("err-bad-request")}, 400)
 
     def _read_body(self):
         origin = self.headers.get("Origin")
         if origin and urlparse(origin).netloc != self.headers.get("Host"):
-            raise HttpError(403, "Forbidden")
+            raise LocalizedError("err-forbidden", status=403)
         length = int(self.headers.get("Content-Length") or 0)
         try:
             data = json.loads(self.rfile.read(length) or b"{}")
         except ValueError:
-            raise HttpError(400, "Invalid JSON")
+            raise LocalizedError("err-invalid-json")
         if not isinstance(data, dict):
-            raise HttpError(400, "Invalid JSON")
+            raise LocalizedError("err-invalid-json")
         return data
 
     def _send_bytes(self, body, content_type, status=200):
@@ -70,10 +73,11 @@ class Handler(BaseHTTPRequestHandler):
     def _send_static(self, url_path):
         found = read_static(url_path)
         if found is None:
-            raise HttpError(404, "Not found")
+            raise LocalizedError("err-not-found", status=404)
         self._send_bytes(*found)
 
-    def _stream(self, hub: Hub):
+    def _stream(self, hub: Hub, locale):
+        l10n = get_l10n(locale)
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream")
         self.send_header("Cache-Control", "no-cache")
@@ -82,7 +86,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             while True:
                 try:
-                    data = "data: " + json.dumps(q.get(timeout=15), ensure_ascii=False) + "\n\n"
+                    data = "data: " + encode(q.get(timeout=15), l10n) + "\n\n"
                 except queue.Empty:
                     data = ": ping\n\n"
                 self.wfile.write(data.encode())

@@ -9,7 +9,7 @@ export function connect(name) {
   source = new EventSource(eventsUrl(name));
   source.onmessage = e => {
     const msg = JSON.parse(e.data);
-    if (msg.type === 'line') addLines([msg.text]);
+    if (msg.type === 'line') addLines([msg.line]);
     else if (msg.type === 'history') setLines(msg.lines);
     else if (msg.type === 'state') update({ state: msg.state, p2p: msg.p2p });
   };

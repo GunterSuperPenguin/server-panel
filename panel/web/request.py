@@ -4,17 +4,11 @@ from ..hub import Hub
 from ..registry import Instance, get_instance
 
 
-class HttpError(Exception):
-    def __init__(self, status, message):
-        super().__init__(message)
-        self.status = status
-        self.message = message
-
-
 @dataclass
 class Request:
     query: dict
     data: dict
+    locale: str
 
     def server_name(self) -> str:
         return self.query.get("server", [""])[0]
