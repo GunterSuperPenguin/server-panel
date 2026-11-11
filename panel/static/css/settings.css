@@ -1,0 +1,9 @@
+#view-settings { padding: 24px 20px; overflow: auto; }
+form#cfg { width: 100%; display: grid; grid-template-columns: minmax(280px, 520px) minmax(320px, 1fr);
+           gap: 24px; align-items: stretch; }
+.settings-fields { display: grid; gap: 16px; align-content: start; }
+.settings-cfg { display: flex; min-height: 360px; }
+.settings-cfg .field { flex: 1; grid-template-rows: auto 1fr; }
+#server-cfg { min-height: 320px; resize: vertical; color: inherit;
+              font: 13px/1.5 ui-monospace, "JetBrains Mono", monospace; tab-size: 4; }
+@media (max-width: 900px) { form#cfg { grid-template-columns: 1fr; } }

@@ -4,7 +4,7 @@ from .web.server import create_http_server
 
 
 def main():
-    SERVERS_DIR.mkdir(exist_ok=True)
+    SERVERS_DIR.mkdir(parents=True, exist_ok=True)
     httpd = create_http_server()
     print(f"GMod panel: http://{HOST}:{PORT} (Ctrl+C to exit)")
     print(f"Servers directory: {SERVERS_DIR}")

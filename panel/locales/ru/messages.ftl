@@ -21,3 +21,5 @@ err-maxplayers-number = Максимум игроков должен быть ч
 err-maxplayers-range = Максимум игроков: от { $min } до { $max }
 err-port-number = Порт должен быть числом
 err-port-range = Порт: от { $min } до { $max }
+err-open-folder = Не удалось открыть папку: не найден xdg-open
+err-cfg-too-large = server.cfg слишком большой (максимум 256 КБ)

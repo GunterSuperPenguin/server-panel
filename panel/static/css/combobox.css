@@ -1,0 +1,14 @@
+.combo { position: relative; }
+.combo input { padding-right: 38px; }
+.combo-toggle { position: absolute; top: 1px; right: 1px; bottom: 1px; width: 34px; padding: 0;
+                display: flex; align-items: center; justify-content: center;
+                border: 0; border-radius: 0 5px 5px 0; background: none; cursor: pointer; }
+.combo-toggle::after { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--dim);
+                       border-bottom: 2px solid var(--dim); transform: translateY(-2px) rotate(45deg); }
+.combo-toggle:hover::after { border-color: var(--accent); }
+.combo-list { position: absolute; z-index: 20; top: 100%; left: 0; right: 0; max-height: 240px; overflow: auto;
+              margin: 4px 0 0; padding: 4px; list-style: none; background: var(--panel);
+              border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+.combo-list li { padding: 6px 10px; border-radius: 4px; cursor: pointer;
+                 font: 13px ui-monospace, "JetBrains Mono", monospace; }
+.combo-list li:hover, .combo-list li[aria-selected=true] { background: var(--bg); color: var(--accent); }

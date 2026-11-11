@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gmod-panel"
+version = "0.1.0"
+description = "Local web control panel for Garry's Mod dedicated servers"
+requires-python = ">=3.10"
+dependencies = ["fluent.runtime>=0.4"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+gmod-panel = "panel.app:main"
+
+[tool.setuptools.packages.find]
+include = ["panel*"]
+
+[tool.setuptools.package-data]
+panel = ["static/**/*", "locales/**/*.ftl"]

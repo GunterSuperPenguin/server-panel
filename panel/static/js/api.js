@@ -18,3 +18,7 @@ export const saveConfig = data => post('/api/config' + serverQuery(), data);
 export const control = action => post(`/api/${action}${serverQuery()}`);
 export const sendCommand = command => post('/api/command' + serverQuery(), { command });
 export const eventsUrl = name => '/api/events' + query({ server: name });
+export const getOptions = () => request('/api/options' + serverQuery());
+export const getServerCfg = () => request('/api/server-cfg' + serverQuery());
+export const saveServerCfg = content => post('/api/server-cfg' + serverQuery(), { content });
+export const openFolder = () => post('/api/open-folder' + serverQuery());

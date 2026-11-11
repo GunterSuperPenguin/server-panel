@@ -1,12 +1,12 @@
 import mimetypes
 
-from ..config import WEB_DIR
+from ..config import STATIC_DIR
 
 
 def read_static(url_path):
     relative = url_path.lstrip("/") or "index.html"
-    target = (WEB_DIR / relative).resolve()
-    if WEB_DIR not in target.parents or not target.is_file():
+    target = (STATIC_DIR / relative).resolve()
+    if STATIC_DIR not in target.parents or not target.is_file():
         return None
     content_type = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
     if content_type.startswith("text/") or content_type.endswith("javascript"):

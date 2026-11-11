@@ -17,10 +17,11 @@ code { font-family: ui-monospace, monospace; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #1a1405; font-weight: 600; }
 
 label { display: grid; gap: 6px; }
-label span { color: var(--dim); font-size: 13px; }
+label span, .field > label { color: var(--dim); font-size: 13px; }
+.field { display: grid; gap: 6px; }
 label.check { display: flex; align-items: center; gap: 10px; }
 label.check span { color: inherit; font-size: inherit; }
-input[type=text], input[type=number] { padding: 9px 12px; background: var(--panel);
+input[type=text], input[type=number], textarea { padding: 9px 12px; background: var(--panel);
   border: 1px solid var(--line); border-radius: 6px; width: 100%; }
 
 .row { display: flex; align-items: center; gap: 14px; }

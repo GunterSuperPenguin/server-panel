@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from .config import DEFAULT_SETTINGS, NAME_RE, SERVERS_DIR, server_path
 from .errors import LocalizedError
+from .files import ensure_server_cfg
 from .hub import Hub
 from .process import Server
 from .settings import save_settings
@@ -43,6 +44,7 @@ def create_server(name):
     except FileExistsError:
         raise LocalizedError("err-name-exists")
     save_settings(name, DEFAULT_SETTINGS)
+    ensure_server_cfg(name)
     get_instance(name).hub.log_key("log-created", name=name)
     return name
 

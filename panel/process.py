@@ -7,6 +7,7 @@ import threading
 
 from .config import APP_ID, server_path
 from .errors import LocalizedError
+from .files import ensure_server_cfg
 from .hub import Hub
 from .settings import load_settings
 
@@ -76,6 +77,7 @@ class Server:
                 if not (server_dir / "srcds_run").exists():
                     hub.log_key("log-no-srcds", name=self.name)
                     break
+                ensure_server_cfg(self.name)
                 hub.set("starting")
                 code = self._run_server(cfg, server_dir)
                 hub.log_key("log-exited", code=str(code))
