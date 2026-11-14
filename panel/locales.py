@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+from threading import RLock
 
 from fluent.runtime import FluentBundle, FluentLocalization, FluentResourceLoader
 from fluent.syntax import ast
@@ -15,6 +16,18 @@ DEFAULT = "en"
 _loader = FluentResourceLoader(str(L10N_DIR / "{locale}"))
 
 
+class ThreadSafeLocalization(FluentLocalization):
+    """Serialize lazy bundle loading and formatting across HTTP threads."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._format_lock = RLock()
+
+    def format_value(self, msg_id, args=None):
+        with self._format_lock:
+            return super().format_value(msg_id, args)
+
+
 def _chain(locale):
     return [DEFAULT] if locale == DEFAULT else [DEFAULT, locale]
 
@@ -22,7 +35,7 @@ def _chain(locale):
 @lru_cache(maxsize=None)
 def get_l10n(locale: str) -> FluentLocalization:
     locales = [locale, DEFAULT] if locale != DEFAULT else [DEFAULT]
-    return FluentLocalization(locales, FILES, _loader, use_isolating=False)
+    return ThreadSafeLocalization(locales, FILES, _loader, use_isolating=False)
 
 
 def resolve_locale(requested, accept_language=""):

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/css/console.css">
 <link rel="stylesheet" href="/css/combobox.css">
 <link rel="stylesheet" href="/css/settings.css">
+<link rel="stylesheet" href="/css/workshop.css">
 <link rel="stylesheet" href="/css/dialog.css">
 </head>
 <body class="pending">
@@ -23,6 +24,7 @@
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" aria-selected="true" data-tab="console" data-i18n="tab-console"></button>
     <button class="tab" role="tab" aria-selected="false" data-tab="settings" data-i18n="tab-settings"></button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="workshop" data-i18n="tab-workshop"></button>
   </div>
   <div id="status" data-s="stopped"><i></i><span id="status-text"></span></div>
   <button class="btn primary" id="b-start" data-i18n="btn-start"></button>
@@ -80,8 +82,55 @@
         </div>
       </div>
     </form>
+
+  </section>
+  <section id="view-workshop">
+    <div class="workshop-top"><div><p class="workshop-eyebrow">GARRY'S MOD · WORKSHOP</p><h1 data-i18n="browser-title"></h1><p class="hint" data-i18n="browser-subtitle"></p></div></div>
+    <div class="workshop-layout">
+      <div class="workshop-browser">
+        <form id="workshop-search" class="row">
+          <input type="text" id="workshop-query" maxlength="200" data-i18n-attr="placeholder:browser-search-placeholder,aria-label:browser-search">
+          <button class="btn primary" data-i18n="browser-search"></button>
+        </form>
+        <div class="workshop-filters"><div id="workshop-tags" class="row" data-i18n-attr="aria-label:browser-tags"></div>
+          <label><span data-i18n="browser-sort"></span><select id="workshop-sort">
+            <option value="popular" data-i18n="browser-popular"></option><option value="recent" data-i18n="browser-recent"></option><option value="rated" data-i18n="browser-rated"></option>
+          </select></label>
+        </div>
+        <p id="browser-message" class="msg" role="status"></p>
+        <button id="browser-retry" class="btn" hidden data-i18n="browser-retry"></button>
+        <div id="workshop-grid" aria-live="polite"></div>
+        <nav class="workshop-pages" data-i18n-attr="aria-label:browser-pages">
+          <button class="btn" id="workshop-prev" data-i18n="browser-prev"></button><span id="workshop-page"></span><button class="btn" id="workshop-next" data-i18n="browser-next"></button>
+        </nav>
+      </div>
+    <aside id="workshop-editor" aria-labelledby="workshop-heading">
+      <h2 id="workshop-heading" data-i18n="workshop-title"></h2>
+      <p class="hint" data-i18n="workshop-help"></p>
+      <label for="workshop-collections" data-i18n="workshop-collection"></label>
+      <select id="workshop-collections"></select>
+      <div class="row">
+        <input id="workshop-name" maxlength="80" data-i18n-attr="placeholder:workshop-name,aria-label:workshop-name">
+        <button class="btn" id="workshop-create" data-i18n="workshop-create"></button>
+        <button class="btn" id="workshop-rename" data-i18n="workshop-rename"></button>
+        <button class="btn" id="workshop-delete" data-i18n="workshop-delete"></button>
+      </div>
+      <form id="workshop-add">
+        <label for="workshop-ids" data-i18n="workshop-ids"></label>
+        <textarea id="workshop-ids" required data-i18n-attr="placeholder:workshop-placeholder"></textarea>
+        <button class="btn primary" data-i18n="workshop-add"></button>
+      </form>
+      <p id="workshop-message" class="msg" role="status"></p>
+      <div id="workshop-addons"></div>
+    </aside>
+    </div>
   </section>
 </main>
+
+<dialog id="workshop-preview" aria-labelledby="preview-title">
+  <div class="preview-top"><h2 id="preview-title"></h2><button class="btn" id="preview-close" data-i18n="browser-close"></button></div>
+  <div id="preview-content"></div>
+</dialog>
 
 <dialog id="dlg">
   <h2 data-i18n="dialog-new-title"></h2>

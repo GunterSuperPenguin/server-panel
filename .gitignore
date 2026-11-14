@@ -13,6 +13,7 @@ env/
 servers/
 /servers/
 components/
+/tests
 
 .poetry/
 .pipenv/
@@ -55,3 +56,11 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 web/js/components/
+
+# Workshop settings integration
+!panel/static/js/components/
+panel/static/js/components/*
+!panel/static/js/components/settings.js
+!panel/static/js/components/workshop.js
+
+!panel/static/js/components/workshop-browser.js

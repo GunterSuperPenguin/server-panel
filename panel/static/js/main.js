@@ -1,3 +1,4 @@
+import { initWorkshop } from './components/workshop.js';
 import { initConnectBanner } from './components/connect-banner.js';
 import { initConsole, showMessage } from './components/console.js';
 import { initLanguageSelect } from './components/language-select.js';
@@ -17,6 +18,7 @@ async function start() {
   initStatus();
   initConsole();
   initSettings();
+  initWorkshop();
   initSession();
   initNewServerDialog({
     onCreated: async name => {

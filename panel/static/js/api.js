@@ -22,3 +22,7 @@ export const getOptions = () => request('/api/options' + serverQuery());
 export const getServerCfg = () => request('/api/server-cfg' + serverQuery());
 export const saveServerCfg = content => post('/api/server-cfg' + serverQuery(), { content });
 export const openFolder = () => post('/api/open-folder' + serverQuery());
+export const getWorkshop = () => request('/api/workshop' + serverQuery());
+export const updateWorkshop = data => post('/api/workshop' + serverQuery(), data);
+export const searchWorkshop = params => request('/api/workshop/search' + query(params));
+export const getWorkshopDetails = id => request('/api/workshop/details' + query({ id }));

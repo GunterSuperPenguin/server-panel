@@ -24,12 +24,11 @@ Whether you're running a server for yourself or hosting a community, this projec
 
 ## ✨ Features
 
-- 🌐 **Web-Based Interface** — Manage your server through a web interface.
-- 🖥️ **Local Server Management** — Designed for managing local Garry's Mod servers.
-- 🌍 **Multilingual Support** — Available in English and Russian.
-- ⚡ **Lightweight** — Built with Python and minimal dependencies.
-- 🐍 **Python 3.10+** — Uses modern Python features.
-- 🔓 **Open Source** — Released under the MIT License.
+- 🌐 **Web-Based Interface** - Manage your server through a web interface.
+- 🖥️ **Local Server Management** - Designed for managing local Garry's Mod servers.
+- 🌍 **Multilingual Support** - Available in English and Russian.
+- ⚡ **Lightweight** - Built with Python and minimal dependencies.
+- 🔓 **Open Source** - Released under the MIT License.
 
 ## 🌍 Languages
 
