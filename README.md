@@ -41,60 +41,33 @@ The interface supports the following languages:
 
 ### Requirements
 
-Make sure you have the following installed:
-
-- Python 3.10 or newer
-- pip (Python package manager)
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/GunterSuperPenguin/server-panel.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd server-panel
-   ```
-
-3. (Recommended) Create a virtual environment:
-
-   ```bash
-   python -m venv .venv
-   ```
-
-4. Activate the virtual environment:
-
-   **Windows:**
-
-   ```bash
-   .venv\Scripts\activate
-   ```
-
-   **Linux / macOS:**
-
-   ```bash
-   source .venv/bin/activate
-   ```
-
-5. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
+- Python 3.10 or newer with `venv` support. On Debian and Ubuntu, install `python3-venv` if needed.
+- Access to a Python package index or a local directory of wheels for dependency installation and updates.
 
 ### ▶️ Running the Application
 
-Start the panel using:
+Clone the repository and open its directory in a terminal.
 
 ```bash
-python run.py
+git clone https://github.com/GunterSuperPenguin/server-panel.git
+cd server-panel
 ```
 
-Once started, follow the application's output to access the web interface.
+**Linux**
+
+```bash
+./run.sh
+```
+
+**Windows**
+
+```bat
+.\run.bat
+```
+
+The launcher creates `.venv` when needed and activates it. On each launch, it installs missing dependencies and upgrades installed dependencies when newer versions compatible with `pyproject.toml` are available. Open the address printed in the terminal, which defaults to `http://127.0.0.1:8080`.
+
+Starting and controlling Garry's Mod dedicated servers requires Linux.
 
 ## 🛠️ Built With
 

@@ -1,9 +1,11 @@
 import os
-import pty
 import re
 import signal
 import subprocess
 import threading
+
+if os.name != "nt":
+    import pty
 
 from .config import APP_ID, server_path
 from .errors import LocalizedError
@@ -13,6 +15,11 @@ from .settings import load_settings
 
 ANSI = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]|\x1b\][^\x07]*\x07|[\x00-\x08\x0b-\x1f\x7f]")
 P2P = re.compile(r"connect (p2p:\d+)")
+
+
+def _require_server_platform():
+    if os.name == "nt":
+        raise LocalizedError("err-server-platform")
 
 
 class Server:
@@ -31,6 +38,7 @@ class Server:
         return self.thread is not None and self.thread.is_alive()
 
     def start(self):
+        _require_server_platform()
         with self.lock:
             if self.active():
                 return False
@@ -52,6 +60,8 @@ class Server:
             t.join(timeout=60)
 
     def restart(self):
+        _require_server_platform()
+
         def job():
             self.stop()
             self.start()

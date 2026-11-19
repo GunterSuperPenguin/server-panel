@@ -12,6 +12,7 @@ err-invalid-json = Некорректный JSON
 err-bad-request = Некорректный запрос
 err-server-not-found = Сервер не найден
 err-server-not-running = Сервер не запущен
+err-server-platform = Для запуска выделенного сервера из панели требуется Linux
 err-name-invalid = Имя: латинские буквы, цифры, _ и -, не более 40 символов
 err-name-exists = Сервер с таким именем уже существует
 err-map-invalid = Карта: допустимы только буквы, цифры, _ . -

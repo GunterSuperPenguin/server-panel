@@ -1,10 +1,9 @@
-__pycache__/
+*/__pycache__/*
 *.py[cod]
 *$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
 
 .venv/
 venv/
@@ -18,7 +17,6 @@ components/
 .poetry/
 .pipenv/
 .conda/
-requirements.txt.log
 
 
 .env
@@ -57,10 +55,4 @@ pip-log.txt
 pip-delete-this-directory.txt
 web/js/components/
 
-# Workshop settings integration
-!panel/static/js/components/
-panel/static/js/components/*
-!panel/static/js/components/settings.js
-!panel/static/js/components/workshop.js
-
-!panel/static/js/components/workshop-browser.js
+!/panel/static/js/components/*

@@ -12,6 +12,7 @@ err-invalid-json = Invalid JSON
 err-bad-request = Bad request
 err-server-not-found = Server not found
 err-server-not-running = Server is not running
+err-server-platform = Starting a dedicated server from the panel requires Linux
 err-name-invalid = Name: latin letters, digits, _ and -, up to 40 characters
 err-name-exists = A server with this name already exists
 err-map-invalid = Map: only letters, digits, _ . - are allowed
